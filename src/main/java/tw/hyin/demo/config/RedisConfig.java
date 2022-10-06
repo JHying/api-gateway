@@ -32,7 +32,6 @@ public class RedisConfig {
 	
 	public static enum RedisConstants {
 
-		USER_TAG("user", "使用者資料"),
 		ROLE_RESOURCE("role_resource", "角色權限對應表");
 
 		@Getter
@@ -54,14 +53,14 @@ public class RedisConfig {
 	 * @return
 	 */
 	@Bean
-	public RedisTemplate<RedisConstants, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 		Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(
 				Object.class);
 		ObjectMapper om = new ObjectMapper();
 		om.setVisibility(PropertyAccessor.ALL, Visibility.ANY);
 		om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
 		jackson2JsonRedisSerializer.setObjectMapper(om);
-		RedisTemplate<RedisConstants, Object> template = new RedisTemplate<>();
+		RedisTemplate<String, Object> template = new RedisTemplate<>();
 		template.setConnectionFactory(redisConnectionFactory);
 		template.setKeySerializer(jackson2JsonRedisSerializer);
 		template.setValueSerializer(jackson2JsonRedisSerializer);

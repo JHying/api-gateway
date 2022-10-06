@@ -9,8 +9,8 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import tw.hyin.demo.utils.Log;
+import tw.hyin.java.utils.JsonUtil;
+import tw.hyin.java.utils.Log;
 
 /**
  * JSON 轉換全域設定
@@ -51,6 +51,7 @@ public class JacksonConfig {
 //			}
 //		});
 		Log.info("Initialized JacksonConfig complete.");
+		JsonUtil.setMapper(objectMapper);
 		return objectMapper;
 	}
 }

@@ -1,10 +1,9 @@
 package tw.hyin.demo.config;
 
-import java.security.PublicKey;
-
 import org.springframework.context.annotation.Configuration;
+import tw.hyin.java.utils.security.RSAUtil;
 
-import tw.hyin.demo.utils.encryption.RSAUtil;
+import java.security.PublicKey;
 
 /**
  * @author rita6 on 2021.
@@ -17,7 +16,7 @@ public class KeyConfig {
     static {
         try {
         	//取得RSA公鑰
-            publicKey = RSAUtil.loadPublicKey("publicKey.jks");
+            publicKey = RSAUtil.loadPublicKeyFromJAR("publicKey.jks");
         } catch (Exception e) {
             e.printStackTrace();
         }
