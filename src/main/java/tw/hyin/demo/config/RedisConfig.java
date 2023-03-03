@@ -3,19 +3,18 @@
  */
 package tw.hyin.demo.config;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import lombok.Getter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
-
-import lombok.Getter;
+import tw.hyin.java.utils.Log;
 
 /**
  * @author YingHan 2021-12-22
@@ -35,10 +34,10 @@ public class RedisConfig {
 		ROLE_RESOURCE("role_resource", "角色權限對應表");
 
 		@Getter
-		private String value;
+		private final String value;
 
 		@Getter
-		private String desc;
+		private final String desc;
 
 		RedisConstants(String value, String desc) {
 			this.value = value;
@@ -67,6 +66,7 @@ public class RedisConfig {
 		template.setHashKeySerializer(jackson2JsonRedisSerializer);
 		template.setHashValueSerializer(jackson2JsonRedisSerializer);
 		template.afterPropertiesSet();
+		Log.info("Redis Initialize Complete.");
 		return template;
 	}
 

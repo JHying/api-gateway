@@ -8,7 +8,7 @@
 	<Property name="log-path" value="logs/${fileName}" />
 	<Property name="log-level" value="debug" />
 	<!-- 保留日誌的天數 -->
-	<Property name="MaxBackupDate" value="10" />
+	<Property name="MaxBackupDate" value="365" />
 	<property name="CONSOLE_PATTERN"
 			  value="[%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8}] %-5level [%t] [%logger{0}.%M\\(%F:%L\\)] - %msg%n" />
 

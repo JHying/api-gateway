@@ -50,3 +50,6 @@ Thumbs.db
 /.idea
 /temp
 *.iml
+src/main/resources/keystore.p12
+src/main/resources/key/
+/src/main/resources/env/prod/

@@ -1,6 +1,7 @@
 package tw.hyin.demo.config;
 
 import org.springframework.context.annotation.Configuration;
+import tw.hyin.java.utils.Log;
 import tw.hyin.java.utils.security.RSAUtil;
 
 import java.security.PublicKey;
@@ -15,10 +16,10 @@ public class KeyConfig {
 
     static {
         try {
-        	//取得RSA公鑰
+            //取得RSA公鑰
             publicKey = RSAUtil.loadPublicKeyFromJAR("publicKey.jks");
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.error(e.getMessage());
         }
     }
 

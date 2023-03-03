@@ -12,10 +12,10 @@
     </parent>
     <groupId>tw.hyin.demo</groupId>
     <artifactId>api-gateway</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
     <name>api-gateway</name>
-    <description>Spring Cloud Gateway (Eureka Client)</description>
+    <description>Spring Cloud Gateway (Register as Eureka Client)</description>
 
     <repositories>
         <repository>
@@ -68,13 +68,22 @@
             </resource>
         </resources>
         <plugins>
-            <!-- collect all jar files and create a single executable jar -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <includeSystemScope>true</includeSystemScope>
                     <sourceDirectory>${pom.basedir}/src/main/java</sourceDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>p12</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
         </plugins>
@@ -202,7 +211,7 @@
         <dependency>
             <groupId>tw.hyin.java</groupId>
             <artifactId>hyin-shared-utils</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.2</version>
             <exclusions>
                 <!--spring webflux 與 web 衝突-->
                 <exclusion>

@@ -19,8 +19,6 @@ import tw.hyin.java.utils.Log;
 import tw.hyin.java.utils.security.JwtPayload;
 import tw.hyin.java.utils.security.JwtUtil;
 
-import java.util.List;
-
 /**
  * 攔截所有需要驗證 token 的請求，調用 JwtTokenUtil 方法做 token 驗證
  *
@@ -53,16 +51,16 @@ public class AuthFilter implements GlobalFilter {
         }
 
         // 沒有驗證訊息拒絕訪問
-        if (this.getAuthHeader(req).isEmpty()) {
+        if (this.getAuthHeader(req) == null) {
             return this.onError(res, new Exception("Authorization not found."));
         }
 
         try {
             // 取得 token
-            String token = this.getAuthHeader(req).get(0);
+            String token = this.getAuthHeader(req);
             // header 是否包含前綴字
             if (token == null || !token.startsWith(JwtUtil.PREFIX)) {
-                return this.onError(res, new Exception("Authorization verify Unsuccessfully."));
+                return this.onError(res, new Exception("Authorization verify unsuccessfully."));
             } else {
                 // 獲取權限
                 UsernamePasswordAuthenticationToken authentication = this.getAuthentication(token);
@@ -71,7 +69,7 @@ public class AuthFilter implements GlobalFilter {
                 return chain.filter(exchange);
             }
         } catch (Exception e) {
-            return this.onError(res, new Exception("Authorization verify Unsuccessfully."));
+            return this.onError(res, e);
         }
     }
 
@@ -98,7 +96,7 @@ public class AuthFilter implements GlobalFilter {
         return resUtil.onError(e);
     }
 
-    private List<String> getAuthHeader(ServerHttpRequest request) {
-        return request.getHeaders().getOrEmpty(HttpHeaders.AUTHORIZATION);
+    private String getAuthHeader(ServerHttpRequest request) {
+        return request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
     }
 }
